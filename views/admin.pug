@@ -1,0 +1,16 @@
+doctype html 
+head
+    include include/head.pug
+    title Admin Panel
+body
+    div(class="container")
+        div(class="box center")
+            h1(class="box-header text-center")
+                | Admin Panel
+            div(class="box-content")
+                div(class="stacked-list")
+                    a(href="/admin/users") Manage Users
+                    a(href="/admin/forums") Manage Forums
+                    hr
+                    a(href="/admin/settings") Settings
+

@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const fs = require('fs'); //filesync
 const crypto = require("crypto");
 const { body, validationResult } = require('express-validator');
-let config = JSON.parse(fs.readFileSync('config/config.json'));
+const config = require('../modules/config');
 const { response, application } = require('express');
 const { connect } = require('http2');
 const connection = require('../modules/connection');

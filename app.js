@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+var adminRouter = require('./routes/admin');
 
 const { config } = require('process');
 
@@ -25,7 +26,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-function setSession (req, res, next) { //Middleware to set session variables
+//Middleware to set session variables
+function setSession (req, res, next) { 
   if (!req.session.loggedIn) {
     req.session.loggedIn = false;
   }
@@ -51,6 +53,9 @@ app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+
+//Admin routes
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

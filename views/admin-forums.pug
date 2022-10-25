@@ -1,0 +1,21 @@
+head
+    include include/head.pug
+    title Admin Panel
+body
+    div(class="container")
+        div(class="box center")
+            h1(class="box-header text-center")
+                | Create Forum
+            div(class="box-content")
+                form(action="/admin/forums/new", method="post")
+                    div(class="stacked-list")
+                        span(class="form-input")
+                            label(for="name") Name:
+                            input(type="text", name="name", id="name") 
+                        span(class="form-input") 
+                            label(for="description") Description:
+                            input(type="text", name="description", id="description")
+                        span(class="form-input")
+                            label(for="identifier") Identifier:
+                            input(type="text", name="identifier", id="identifier")
+                    button(type="submit") Create
