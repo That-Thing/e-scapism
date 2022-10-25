@@ -15,5 +15,5 @@ html
                 h1(class="box-header text-center")
                     | Forums
                 div(class="box-content")
-                    for forum in forums
+                    each forum in forums
                         a(href="/forums/#{forum.id}") #{forum.name}

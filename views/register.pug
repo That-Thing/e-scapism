@@ -10,10 +10,19 @@ html
                     | Register
                 div(class="box-content")
                     form(action="/register", method="post")
-                        label(for="username") Username:
-                        input(type="text", name="username", placeholder="Username")
-                        label(for="password") Password:
-                        input(type="password", name="password", placeholder="Password")
-                        label(for="password2") Confirm Password:
-                        input(type="password", name="password2", placeholder="Confirm Password")
-                        button(type="submit", value="Register") Register
+                        div(class="auth-form")
+                            span(class="form-input")
+                                label(for="username") Username:
+                                input(type="text", name="username", placeholder="Username")
+                            if config.accounts.registration.requireEmail == true
+                                span(class="form-input")
+                                    label(for="email") E-mail:
+                                    input(type="email", name="email", placeholder="E-mail")
+                            span(class="form-input")
+                                label(for="password") Password:
+                                input(type="password", name="password", placeholder="Password")
+                            span(class="form-input")
+                                label(for="password2") Confirm Password:
+                                input(type="password", name="password2", placeholder="Confirm Password")
+                            button(type="submit", value="Register") Register
+                    span(class="error") #{error}

@@ -1,17 +1,25 @@
 {
     "server": {
-        "port" : 8080,
-        "host" : "localhost"
+        "port" : 3000,
+        "host" : "localhost",
+        "salt": "salt"
     },
     "database": {
         "host": "localhost",
-        "name": "test",
-        "user": "senbox",
-        "password": "senbox"
+        "name": "escapism",
+        "user": "root",
+        "password": ""
     },
     "branding": {
         "name": "E~Scapism",
         "description": "Internet forums how they should be",
         "logo": "images/logo.png"
+    },
+    "accounts": {
+        "registration": {
+            "enabled": true,
+            "requireEmail": false,
+            "requireEmailConfirmation": true
+        }
     }
 }

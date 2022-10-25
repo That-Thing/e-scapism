@@ -33,7 +33,7 @@ CREATE TABLE `accounts` (
   `username` int NOT NULL COMMENT 'Username of user',
   `password` int NOT NULL COMMENT 'Hashed password',
   `creation` int NOT NULL COMMENT 'Unix timestamp'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE `forums` (
   `owner` int NOT NULL COMMENT 'ID of owner',
   `name` text NOT NULL COMMENT 'Name of forum',
   `description` text NOT NULL COMMENT 'Short description of forum'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `posts` (
   `forum` int NOT NULL COMMENT 'ID of forum',
   `creation` int NOT NULL COMMENT 'Unix timestamp',
   `content` longtext NOT NULL COMMENT 'Content of post'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
