@@ -8,10 +8,12 @@ const session = require('express-session');
 const fs = require('fs');
 let cfg = JSON.parse(fs.readFileSync('config/config.json'));
 
+//Import routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
+
 const { config } = require('process');
 
 var app = express();
@@ -23,6 +25,14 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+function setSession (req, res, next) { //Middleware to set session variables
+  if (!req.session.loggedIn) {
+    req.session.loggedIn = false;
+  }
+  next()
+}
+app.use(setSession);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -32,11 +42,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//Use routers
+
+//Routes
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+//Auth routes
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

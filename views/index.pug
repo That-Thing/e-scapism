@@ -13,8 +13,14 @@ html
                     p The website at the end of the universe. 
             div(class="box center")
                 div(class="box-content")
-                    a(href="/login") Login
-                    a(href="/register" class="ml-1") Register
+                    if loggedIn == false
+                        a(href="/login") Login
+                        a(href="/register" class="ml-1") Register
+                    else
+                        a(href="/logout") Logout
+                        a(href="/account" class="ml-1") Account
+                        if group > 1
+                            a(href="/admin" class="ml-1") Admin Panel
             div(class="box center")
                 h1(class="box-header text-center")
                     | Forums

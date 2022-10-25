@@ -25,6 +25,7 @@ router.post('/', body('username').not().isEmpty().trim().escape(), body('passwor
       if(result.length > 0) {
           req.session.user = result[0].id;
           req.session.loggedIn = true;
+          req.session.group = result[0].perms;
           res.redirect('/'); //Redirect to home page
       } else {
           res.render('login', { config: config, error: "Incorrect username or password." });
