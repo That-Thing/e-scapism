@@ -11,11 +11,26 @@ body
                     div(class="stacked-list")
                         span(class="form-input")
                             label(for="name") Name:
-                            input(type="text", name="name", id="name") 
+                            input(type="text", name="name", id="name" autocomplete="off") 
                         span(class="form-input") 
                             label(for="description") Description:
-                            input(type="text", name="description", id="description")
+                            input(type="text", name="description", id="description" autocomplete="off")
                         span(class="form-input")
                             label(for="identifier") Identifier:
-                            input(type="text", name="identifier", id="identifier")
+                            input(type="text", name="identifier", id="identifier" autocomplete="off")
                     button(type="submit") Create
+            if error
+                div(class="error mt-1 text-center") #{error}
+        div(class="box center")
+            h1(class="box-header text-center")
+                | Manage Forums
+            div(class="box-content")
+                div(class="stacked-list")
+                    each forum in forums
+                        div(class="flex") 
+                            a(href="/forums/#{forum.id}") #{forum.name} - [#{forum.text_identifier}]
+                            span(class="ml-a")
+                                a(href="/admin/forums/#{forum.id}/edit") Edit
+                                a(href="/admin/forums/#{forum.id}/delete" class="ml-1") Delete
+                    if forums.length == 0
+                        p(class="text-center") No forums found.

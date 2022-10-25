@@ -28,4 +28,5 @@ html
                                 button(type="submit", value="Register") Register
                     else
                         p You are already logged in.
-                    div(class="error mt-1 text-center") #{error}
+                    if error
+                        div(class="error mt-1 text-center") #{error}
