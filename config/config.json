@@ -1,0 +1,17 @@
+{
+    "server": {
+        "port" : 8080,
+        "host" : "localhost"
+    },
+    "database": {
+        "host": "localhost",
+        "name": "test",
+        "user": "senbox",
+        "password": "senbox"
+    },
+    "branding": {
+        "name": "E~Scapism",
+        "description": "Internet forums how they should be",
+        "logo": "images/logo.png"
+    }
+}

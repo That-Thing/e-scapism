@@ -1,0 +1,19 @@
+doctype html 
+html 
+    head 
+        title Register 
+        link(rel='stylesheet', href='/styles/style.css')
+    body 
+        div(class="container")
+            div(class="box center")
+                h1(class="box-header text-center")
+                    | Register
+                div(class="box-content")
+                    form(action="/register", method="post")
+                        label(for="username") Username:
+                        input(type="text", name="username", placeholder="Username")
+                        label(for="password") Password:
+                        input(type="password", name="password", placeholder="Password")
+                        label(for="password2") Confirm Password:
+                        input(type="password", name="password2", placeholder="Confirm Password")
+                        button(type="submit", value="Register") Register
