@@ -26,9 +26,9 @@ router.get('/forums', function(req, res) {
 });
 //Edit forum
 router.get('/forums/:id', function(req, res) {
-    let error = null
+    let err = null
     if(req.query.error) {
-        error = req.query.error;
+        err = req.query.error;
     }
     if(!req.session.loggedIn || req.session.group < 1) {
         return res.redirect('/');
@@ -36,7 +36,7 @@ router.get('/forums/:id', function(req, res) {
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, result) {
         if (error) throw error;
         if(result.length > 0) {
-            res.render('admin-forums-edit', { config: config, group: req.session.group, user: req.session.user, forum: result[0], error: error });
+            res.render('admin-forums-edit', { config: config, group: req.session.group, user: req.session.user, forum: result[0], error: err });
         } else {
             res.redirect('/admin/forums');
         }
