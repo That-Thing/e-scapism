@@ -8,13 +8,6 @@
   margin-bottom: 1em;
   margin-top: 1em;
 }
-.text-center {
-  text-align: center;
-}
-.center{
-  margin-left: auto;
-  margin-right: auto;
-}
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -22,8 +15,4 @@
 }
 .form-input {
   margin-bottom: 5px;
-}
-.error {
-  color: red;
-  font-style: italic;
 }
