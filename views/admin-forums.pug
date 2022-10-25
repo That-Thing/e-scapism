@@ -24,13 +24,12 @@ body
         div(class="box center")
             h1(class="box-header text-center")
                 | Manage Forums
-            div(class="box-content")
-                div(class="stacked-list")
+            div(class="box-content stacked-list")
                     each forum in forums
                         div(class="flex") 
-                            a(href="/forums/#{forum.id}") #{forum.name} - [#{forum.text_identifier}]
+                            a(href="/forums/"+forum.id) #{forum.name} - [#{forum.text_identifier}]
                             span(class="ml-a")
-                                a(href="/admin/forums/#{forum.id}/edit") Edit
-                                a(href="/admin/forums/#{forum.id}/delete" class="ml-1") Delete
+                                a(href="/admin/forums/"+forum.id) Edit
+                                a(href="/admin/forums/"+forum.id+"/delete" class="ml-1") Delete
                     if forums.length == 0
                         p(class="text-center") No forums found.

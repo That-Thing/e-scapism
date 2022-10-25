@@ -24,6 +24,6 @@ html
             div(class="box center")
                 h1(class="box-header text-center")
                     | Forums
-                div(class="box-content")
+                div(class="box-content stacked-list text-center")
                     each forum in forums
-                        a(href="/forums/#{forum.id}") #{forum.name}
+                        a(href="/forums/"+forum.id) #{forum.name} - [#{forum.text_identifier}]
