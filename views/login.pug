@@ -2,30 +2,23 @@ doctype html
 html 
     head 
         include include/head.pug
-        title Register 
+        title Log in 
     body 
         div(class="container")
             div(class="box center")
                 h1(class="box-header text-center")
-                    | Register
+                    | Log in
                 div(class="box-content")
                     if loggedIn == false
-                        form(action="/register", method="post")
+                        form(action="/login", method="post")
                             div(class="auth-form")
                                 span(class="form-input")
                                     label(for="username") Username:
                                     input(type="text", name="username", placeholder="Username")
-                                if config.accounts.registration.requireEmail == true
-                                    span(class="form-input")
-                                        label(for="email") E-mail:
-                                        input(type="email", name="email", placeholder="E-mail")
                                 span(class="form-input")
                                     label(for="password") Password:
                                     input(type="password", name="password", placeholder="Password")
-                                span(class="form-input")
-                                    label(for="password2") Confirm Password:
-                                    input(type="password", name="password2", placeholder="Confirm Password")
-                                button(type="submit", value="Register") Register
+                                button(type="submit", value="Register") Log in
                     else
                         p You are already logged in.
                     div(class="error mt-1 text-center") #{error}

@@ -1,21 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const fs = require('fs'); //filesync
 const crypto = require("crypto");
 const { body, validationResult } = require('express-validator');
-let config = JSON.parse(fs.readFileSync('config/config.json'));
-const mysql = require('mysql');
+const connection = require('../modules/connection');
+const config = require('../modules/config');
 const { response, application } = require('express');
 const { connect } = require('http2');
 const app = require('../app');
-const connection = mysql.createConnection({
-  host: config['database']['host'],
-  user: config['database']['user'],
-  password: config['database']['password'],
-  database: config['database']['name']
-});
 router.get('/', function(req, res) {
-    res.render('register', { config: config });
+    res.render('register', { config: config, loggedIn: req.session.loggedIn });
 });
 router.post('/', body('username').not().isEmpty().trim().escape(), body('email').isEmail().normalizeEmail().optional({checkFalsy: true}), function(req, res) {
     if(config.accounts.registration.enabled == false) { //if registration is disabled
