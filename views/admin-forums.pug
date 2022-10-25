@@ -30,6 +30,5 @@ body
                             a(href="/forums/"+forum.id) #{forum.name} - [#{forum.text_identifier}]
                             span(class="ml-a")
                                 a(href="/admin/forums/"+forum.id) Edit
-                                a(href="/admin/forums/"+forum.id+"/delete" class="ml-1") Delete
                     if forums.length == 0
                         p(class="text-center") No forums found.

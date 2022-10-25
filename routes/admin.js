@@ -16,12 +16,16 @@ router.get('/', function(req, res) {
 });
 //Manage forums
 router.get('/forums', function(req, res) {
+    let err = null
+    if(req.query.error) {
+        err = req.query.error;
+    }
     if(!req.session.loggedIn || req.session.group < 1) {
         return res.redirect('/');
     }
     connection.query(`SELECT * FROM forums`, function (error, result) {
         if (error) throw error;
-        res.render('admin-forums', { config: config, group: req.session.group, user: req.session.user, forums: result });
+        res.render('admin-forums', { config: config, group: req.session.group, user: req.session.user, forums: result, error: err });
     });
 });
 //Edit forum
@@ -53,9 +57,16 @@ router.post('/forums/new', body('name').not().isEmpty().trim().escape(), body("d
     if(name == "" || description == "" || identifier == "") { //if any fields are empty
         return res.redirect('/admin/forums?error='+encodeURIComponent("Please fill out all fields."));
     }
-    connection.query(`INSERT INTO forums VALUES (NULL, '${identifier}', ${Date.now()}, ${req.session.user}, '${name}', '${description}')`, function (error, result) {
+    //Check if forum already exists
+    connection.query(`SELECT * FROM forums WHERE LOWER(text_identifier) = '${identifier.toLowerCase()}' OR LOWER(name) = '${name.toLowerCase()}'`, function (error, result) {
         if (error) throw error;
-        res.redirect('/admin/forums');
+        if(result.length > 0) { //Forum already exists
+            return res.redirect('/admin/forums?error='+encodeURIComponent("Forum already exists."));
+        }
+        connection.query(`INSERT INTO forums VALUES (NULL, '${identifier}', ${Date.now()}, ${req.session.user}, '${name}', '${description}')`, function (error, result) {
+            if (error) throw error;
+            res.redirect('/admin/forums');
+        });
     });
 });
 //Edit forum
@@ -74,7 +85,20 @@ router.post('/forums/:id/edit', body('name').not().isEmpty().trim().escape(), bo
         res.redirect('/admin/forums');
     });
 });
-
+//Delete forum
+router.get('/forums/:id/delete', function(req, res) {
+    if(!req.session.loggedIn || req.session.group < 1) {
+        return res.redirect('/');
+    }
+    connection.query(`DELETE FROM forums WHERE id = ${req.params.id}`, function (error, result) {
+        if (error) throw error;
+        //Delete all posts in forum
+        connection.query(`DELETE FROM posts WHERE forum = ${req.params.id}`, function (error, result) {
+            if (error) throw error;
+            res.redirect('/admin/forums');
+        });
+    });
+});
 
 
 
