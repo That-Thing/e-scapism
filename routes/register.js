@@ -37,7 +37,7 @@ router.post('/', body('username').not().isEmpty().trim().escape(), body('email')
         }
         password = crypto.createHash('sha256').update(password+config['server']['salt']).digest('base64'); //Hash password
         var ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
-        let sql = `INSERT INTO accounts VALUES (NULL, 0, '${username}', '${password}', ${null ? email == null : "'"+email+"'"},${Date.now()}, '${ip}')`;
+        let sql = `INSERT INTO accounts VALUES (NULL, 0, '${username}', '${password}', ${null ? !email : "'"+email+"'"},${Date.now()}, '${ip}')`;
         connection.query(sql, function (err, result) {
             if (err) throw err;
             res.redirect('/login'); //Redirect to login page

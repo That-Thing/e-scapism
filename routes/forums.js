@@ -38,9 +38,9 @@ router.post('/:id/post', body('content').not().isEmpty().trim().escape(), functi
     //Check if forum exists
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, rows) {
         if(rows.length > 0) {
-            connection.query(`INSERT INTO posts VALUES (NULL, ${req.session.user}, ${req.params.id}, ${Date.now()}, '${content}')`, function (error, result) {
+            connection.query(`INSERT INTO posts VALUES (NULL, ${req.session.user}, ${req.params.id}, NULL,${Date.now()}, '${content}')`, function (error, result) {
                 if (error) throw error;
-                res.redirect(`/forums/${req.params.id}`);
+                res.redirect(`/forums/${req.params.id}/${result.insertId}`); //Redirect user to new thread.
             });
         } else {
             return res.redirect('/forums');

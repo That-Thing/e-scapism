@@ -1,65 +1,112 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.11-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
+-- MySQL dump 10.13  Distrib 8.0.30, for Linux (x86_64)
+--
+-- Host: localhost    Database: escapism
+-- ------------------------------------------------------
+-- Server version	8.0.30-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Table structure for table `accounts`
+--
 
--- Dumping database structure for escapism
-CREATE DATABASE IF NOT EXISTS `escapism` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `escapism`;
-
--- Dumping structure for table escapism.accounts
-CREATE TABLE IF NOT EXISTS `accounts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'User ID',
-  `perms` int(11) NOT NULL COMMENT 'Permission level',
-  `username` tinytext NOT NULL COMMENT 'Username of user',
-  `password` text NOT NULL COMMENT 'Hashed password',
-  `email` text DEFAULT NULL COMMENT 'Optional email',
-  `creation` int(11) NOT NULL COMMENT 'Unix timestamp',
-  `ip` text NOT NULL COMMENT 'IP of user',
+DROP TABLE IF EXISTS `accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `accounts` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'User ID',
+  `perms` int NOT NULL COMMENT 'Permission level',
+  `username` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Username of user',
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Hashed password',
+  `email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Optional email',
+  `creation` bigint NOT NULL COMMENT 'Unix timestamp',
+  `ip` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'IP of user',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Data exporting was unselected.
+--
+-- Dumping data for table `accounts`
+--
 
--- Dumping structure for table escapism.forums
-CREATE TABLE IF NOT EXISTS `forums` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID of forum',
-  `text_identifier` tinytext NOT NULL COMMENT 'Text identifier (ex: test, soc, psy)',
-  `creation` int(11) NOT NULL COMMENT 'Unix Timestamp',
-  `owner` int(11) NOT NULL COMMENT 'ID of owner',
-  `name` text NOT NULL COMMENT 'Name of forum',
-  `description` text NOT NULL COMMENT 'Short description of forum',
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+INSERT INTO `accounts` VALUES (1,2,'Test','Tt8H7clbL9y8ryN4/RLYrCEsKqbjJsWcPmKb4wOdZDI=','undefined',1666811442463,'::1');
+/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `forums`
+--
+
+DROP TABLE IF EXISTS `forums`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `forums` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID of forum',
+  `text_identifier` tinytext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Text identifier (ex: test, soc, psy)',
+  `creation` bigint NOT NULL COMMENT 'Unix Timestamp',
+  `owner` int NOT NULL COMMENT 'ID of owner',
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Name of forum',
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Short description of forum',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Data exporting was unselected.
+--
+-- Dumping data for table `forums`
+--
 
--- Dumping structure for table escapism.posts
-CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Post ID',
-  `owner` int(11) NOT NULL COMMENT 'ID of post owner',
-  `forum` int(11) NOT NULL COMMENT 'ID of forum',
-  `creation` int(11) NOT NULL COMMENT 'Unix timestamp',
-  `content` longtext NOT NULL COMMENT 'Content of post',
+LOCK TABLES `forums` WRITE;
+/*!40000 ALTER TABLE `forums` DISABLE KEYS */;
+INSERT INTO `forums` VALUES (1,'tst',1666811972678,1,'Test','Testing forum lol');
+/*!40000 ALTER TABLE `forums` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `posts` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Post ID',
+  `owner` int NOT NULL COMMENT 'ID of post owner',
+  `forum` int NOT NULL COMMENT 'ID of forum',
+  `thread` int DEFAULT NULL COMMENT 'Thread the post belongs to; NULL if post is thread. ',
+  `creation` bigint NOT NULL COMMENT 'Unix timestamp',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Content of post',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Data exporting was unselected.
+--
+-- Dumping data for table `posts`
+--
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (1,1,1,NULL,1666812072180,'Test post');
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-10-26 15:30:41
