@@ -38,7 +38,7 @@ router.post('/:id/post', body('content').not().isEmpty().trim().escape(), functi
     //Check if forum exists
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, rows) {
         if(rows.length > 0) {
-            connection.query(`INSERT INTO posts VALUES (NULL, ${req.session.user}, ${req.params.id}, NULL,${Date.now()}, '${content}')`, function (error, result) {
+            connection.query(`INSERT INTO posts VALUES (NULL, ${req.session.user}, '${req.session.username}', ${req.params.id}, NULL,${Date.now()}, '${content}')`, function (error, result) {
                 if (error) throw error;
                 res.redirect(`/forums/${req.params.id}/${result.insertId}`); //Redirect user to new thread.
             });
@@ -47,4 +47,19 @@ router.post('/:id/post', body('content').not().isEmpty().trim().escape(), functi
         }
     });
 });
+//Post page
+router.get('/:id/:post', function(req, res, next) {
+    connection.query(`SELECT * FROM posts WHERE id = ${req.params.post}`, function (error, rows) { //Get thread
+        if (error) throw error;
+        if(rows.length > 0) {
+            connection.query(`SELECT * FROM posts WHERE thread=${req.params.post}`, function (error, posts) { //Get posts
+                if (error) throw error;
+                res.render('thread', { config: config, thread: rows[0], posts: posts, session: req.session });
+            });
+        } else {
+            res.redirect('/forums');
+        }
+    });
+});
+
 module.exports = router;

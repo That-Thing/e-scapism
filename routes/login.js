@@ -23,6 +23,7 @@ router.post('/', body('username').not().isEmpty().trim().escape(), body('passwor
       if (error) throw error;
       if(result.length > 0) {
           req.session.user = result[0].id;
+          req.session.username = result[0].username;
           req.session.loggedIn = true;
           req.session.group = result[0].perms;
           res.redirect('/'); //Redirect to home page
