@@ -1,0 +1,29 @@
+head
+    include include/head.pug
+    title User Management
+body
+    div(class="container")
+        div(class="box center")
+            h1(class="box-header text-center")
+                | User Management
+            div(class="box-content")
+                p Welcome to the user management panel. Here you can manage users and their permissions.
+        div(class="box center")
+            h1(class="box-header text-center")
+                | Users
+            div(class="box-content")
+                table(class="table")
+                    thead
+                        tr
+                            th Username
+                            th Email
+                            th Group
+                            th Actions
+                    tbody(class="text-center")
+                        each user in users
+                            tr
+                                td #{user.username}
+                                td #{user.email ? user.email : "No email"}
+                                td #{user.perms}
+                                td
+                                    a(href="/admin/users/"+user.id) Edit
