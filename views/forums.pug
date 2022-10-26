@@ -1,0 +1,14 @@
+head
+    include include/head.pug
+    title Forum List
+body
+    div(class="container")
+        div(class="box center")
+            h1(class="box-header text-center")
+                | Forum List
+            div(class="box-content")
+                each forum in forums
+                    div()
+                        a(href="/forums/"+forum.id) #{forum.name} - [#{forum.text_identifier}]
+                        span(class="ml-1 italics grey") #{forum.description}
+                        

@@ -3,6 +3,12 @@
     color: red;
     font-style: italic;
 }
+.grey {
+    color: grey;
+}
+.italics {
+    font-style: italic;
+}
 /* Margin */
 .ml-a {
     margin-left: auto;

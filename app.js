@@ -14,6 +14,7 @@ var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var adminRouter = require('./routes/admin');
+var forumRouter = require('./routes/forums');
 
 const { config } = require('process');
 
@@ -53,6 +54,7 @@ app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/forums', forumRouter);
 
 //Admin routes
 app.use('/admin', adminRouter);

@@ -148,6 +148,9 @@ router.post('/users/:id/edit', body('username').not().isEmpty().trim().escape(),
     }
     let username = req.body.username;
     let email = req.body.email;
+    if (email == "") {
+        email = null;
+    }
     let group = req.body.group;
     if(username == "" || group == "") { //if any fields are empty
         return res.redirect('/admin/users/'+req.params.id+'?error='+encodeURIComponent("Please fill out all fields."));

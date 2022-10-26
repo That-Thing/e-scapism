@@ -21,5 +21,13 @@
             "requireEmail": false,
             "requireEmailConfirmation": true
         }
+    },
+    "posts": {
+        "maxPostLength": 10000,
+        "wordCount": {
+            "enabled": true,
+            "minimum": 10,
+            "maximum": 4000
+        }
     }
 }
