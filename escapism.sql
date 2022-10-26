@@ -48,11 +48,12 @@ CREATE TABLE IF NOT EXISTS `forums` (
 
 -- Dumping structure for table escapism.posts
 CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(11) NOT NULL COMMENT 'Post ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Post ID',
   `owner` int(11) NOT NULL COMMENT 'ID of post owner',
   `forum` int(11) NOT NULL COMMENT 'ID of forum',
   `creation` int(11) NOT NULL COMMENT 'Unix timestamp',
-  `content` longtext NOT NULL COMMENT 'Content of post'
+  `content` longtext NOT NULL COMMENT 'Content of post',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.

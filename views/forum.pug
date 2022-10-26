@@ -8,7 +8,7 @@ body
                 | #{forum.name}
             div(class="box-content")
                 if loggedIn == true
-                    form(action="post" method="POST")
+                    form(action="/forums/"+forum.id+"/post" method="POST")
                         div(class="stacked-list")
                             textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.minimum maxlength=config.posts.maxPostLength required)
                             button(type="submit") Post
@@ -24,7 +24,7 @@ body
                     each post in posts
                         div(class="post")
                             div(class="post-header")
-                                span #{post.author.username}
+                                span #{post.owner}
                                 span(class="ml-1 italics grey") #{post.date}
                             div(class="post-content")
                                 p #{post.content} 
