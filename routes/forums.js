@@ -49,13 +49,22 @@ router.post('/:id/post', body('content').not().isEmpty().trim().escape(), functi
 });
 //Post page
 router.get('/:id/:post', function(req, res, next) {
-    connection.query(`SELECT * FROM posts WHERE id = ${req.params.post}`, function (error, rows) { //Get thread
+    connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, forums) { //Get forum
         if (error) throw error;
-        if(rows.length > 0) {
-            connection.query(`SELECT * FROM posts WHERE thread=${req.params.post}`, function (error, posts) { //Get posts
+        if(forums.length > 0) {
+            connection.query(`SELECT * FROM posts WHERE id = ${req.params.post} AND thread IS NULL AND forum=${req.params.id}`, function (error, posts) { //Get thread
                 if (error) throw error;
-                res.render('thread', { config: config, thread: rows[0], posts: posts, session: req.session });
+                if(posts.length > 0) {
+                    connection.query(`SELECT * FROM posts WHERE thread=${req.params.post}`, function (error, replies) { //Get replies
+                        if (error) throw error;
+                        res.render('thread', { config: config, forum: forums[0], thread: posts[0], replies: replies, session: req.session });
+                    });
+                } else {
+                    res.redirect('/forums/'+req.params.id);
+                }
+
             });
+        
         } else {
             res.redirect('/forums');
         }

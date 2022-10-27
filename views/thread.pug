@@ -17,14 +17,14 @@ body
                         a(href="/login") logged in
                         |  to post.
         div(class="box center")
-            h1(class="box-header") Thread#{thread.id}
+            h1(class="box-header text-center") Thread#{thread.id}
             div(class="box-content")
                 - var date = new Date(thread.creation)
                 p Created by #{thread.username}
                 p(class="grey italics") #{date.toLocaleString()}
                 hr
                 p(class="thread-content") #{thread.content}
-        each post in posts 
+        each post in replies 
             div(class="box center")
                 div(class="box-content")
                     - var date = new Date(post.creation)

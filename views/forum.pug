@@ -21,12 +21,15 @@ body
                 | Posts
             div(class="box-content")
                 if posts.length > 0
-                    each post in posts
+                    each post, index in posts
                         div(class="post")
                             div(class="post-header")
-                                span #{post.owner}
-                                span(class="ml-1 italics grey") #{post.date}
+                                span #{post.username}
+                                - var date = new Date(post.creation)
+                                span(class="ml-1 italics grey") #{date.toLocaleString()}
                             div(class="post-content")
                                 p #{post.content} 
+                            if index != posts.length - 1
+                                hr
                 else
                     p(class="text-center") No posts yet.
