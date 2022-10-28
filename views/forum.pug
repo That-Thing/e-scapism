@@ -29,6 +29,7 @@ body
                                 span(class="ml-1 italics grey") #{date.toLocaleString()}
                             div(class="post-content")
                                 p #{post.content} 
+                            a(href="/forums/"+forum.id+"/"+post.id class="ml-1") [Link to thread]
                             if index != posts.length - 1
                                 hr
                 else

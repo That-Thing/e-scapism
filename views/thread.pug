@@ -17,7 +17,7 @@ body
                         a(href="/login") logged in
                         |  to post.
         div(class="box center")
-            h1(class="box-header text-center") Thread#{thread.id}
+            h1(class="box-header text-center") Thread##{thread.id}
             div(class="box-content")
                 - var date = new Date(thread.creation)
                 p Created by #{thread.username}
