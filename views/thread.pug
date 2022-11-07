@@ -10,12 +10,14 @@ body
                 if session.loggedIn == true
                     form(action="/forums/"+forum.id+"/"+thread.id+"/post" method="POST")
                         div(class="stacked-list")
-                            textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.minimum maxlength=config.posts.maxPostLength required)
+                            textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.replies.minimum maxlength=config.posts.wordCount.replies.maxChars required)
                             button(type="submit") Reply
                 else
                     span(class="text-center") You must be 
                         a(href="/login") logged in
                         |  to reply.
+                if error
+                    div(class="error mt-1 text-center") #{error}
         div(class="box center w-50")
             h1(class="box-header text-center") Thread##{thread.id}
             div(class="box-content")

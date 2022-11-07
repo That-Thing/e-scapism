@@ -10,12 +10,14 @@ body
                 if loggedIn == true
                     form(action="/forums/"+forum.id+"/post" method="POST")
                         div(class="stacked-list")
-                            textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.minimum maxlength=config.posts.maxPostLength required)
+                            textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.threads.minimum maxlength=config.posts.wordCount.threads.maxChars required)
                             button(type="submit") Post
                 else
                     span(class="text-center") You must be 
                         a(href="/login") logged in
                         |  to post.
+                if error
+                    div(class="error mt-1 text-center") #{error}
         div(class="box center w-50")
             h1(class="box-header text-center")
                 | Posts

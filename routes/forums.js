@@ -7,6 +7,11 @@ const { connect } = require('http2');
 const app = require('../app');
 const { body, validationResult } = require('express-validator');
 
+//Check how many words are in a string.
+function checkWords (str) {
+    return str.split(" ").length;
+}
+
 //Forum list page
 router.get('/', function(req, res, next) {
     connection.query('SELECT * FROM `forums`', function (error, rows) {
@@ -16,10 +21,15 @@ router.get('/', function(req, res, next) {
 
 //Forum page
 router.get('/:id', function(req, res, next) {
+    if(req.query.error) {
+        err = req.query.error;
+    } else {
+        err = null;
+    }
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, rows) { //Get forum
         if(rows.length > 0) {
             connection.query(`SELECT * FROM posts WHERE forum=${req.params.id}`, function (error, posts) { //Get posts
-                res.render('forum', { config: config, forum: rows[0], posts: posts, group: req.session.group, loggedIn: req.session.loggedIn });
+                res.render('forum', { config: config, forum: rows[0], posts: posts, group: req.session.group, loggedIn: req.session.loggedIn, error: err });
             });
         } else {
             res.redirect('/forums');
@@ -32,12 +42,21 @@ router.post('/:id/post', body('content').not().isEmpty().trim().escape(), functi
         return res.redirect('/login');
     }
     let content = req.body.content;
-    if(content == "") {
+    if(content == "") { //if content is empty
         return res.redirect(`/forums/${req.params.id}`);
+    }
+    if(content.length > config.posts.wordCount.threads.maxChars) { //If post is too long
+        return res.redirect(`/forums/${req.params.id}?error=${encodeURIComponent("Character limit exceeded.")}`);
     }
     //Check if forum exists
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, rows) {
         if(rows.length > 0) {
+            if(config.posts.wordCount.threads.enabled && checkWords(content) < config.posts.wordCount.threads.minimum) { //If word count is enabled and post is too short
+                return res.redirect(`/forums/${req.params.id}?error=${encodeURIComponent("Word count too low. Minimum: "+config.posts.wordCount.threads.minimum)}`);
+            }
+            if(checkWords(content) > config.posts.wordCount.threads.maximum ) { //If word count is too high
+                return res.redirect(`/forums/${req.params.id}?error=${encodeURIComponent("Word count too high. Maximum: "+config.posts.wordCount.threads.maximum)}`);
+            }
             connection.query(`INSERT INTO posts VALUES (NULL, ${req.session.user}, '${req.session.username}', ${req.params.id}, NULL,${Date.now()}, '${content}')`, function (error, result) {
                 if (error) throw error;
                 res.redirect(`/forums/${req.params.id}/${result.insertId}`); //Redirect user to new thread.

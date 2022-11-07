@@ -23,11 +23,19 @@
         }
     },
     "posts": {
-        "maxPostLength": 10000,
         "wordCount": {
-            "enabled": true,
-            "minimum": 10,
-            "maximum": 4000
+            "threads" : {
+                "enabled": true,
+                "minimum": 10,
+                "maximum": 4000,
+                "maxChars": 10000
+            },
+            "replies" : {
+                "enabled": true,
+                "minimum": 5,
+                "maximum": 4000,
+                "maxChars": 50000
+            }
         }
     }
 }
