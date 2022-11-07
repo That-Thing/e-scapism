@@ -29,4 +29,5 @@ hr {
 .post-textarea {
   width: 100%;
   height: 100px;
+  max-width: 100%;
 }

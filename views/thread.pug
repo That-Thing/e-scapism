@@ -3,7 +3,7 @@ head
     title Thread#{thread.id}
 body
     div(class="container")
-        div(class="box center")
+        div(class="box center w-50")
             h1(class="box-header text-center")
                 | Reply
             div(class="box-content")
@@ -11,11 +11,11 @@ body
                     form(action="/forums/"+forum.id+"/"+thread.id+"/post" method="POST")
                         div(class="stacked-list")
                             textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.minimum maxlength=config.posts.maxPostLength required)
-                            button(type="submit") Post
+                            button(type="submit") Reply
                 else
                     span(class="text-center") You must be 
                         a(href="/login") logged in
-                        |  to post.
+                        |  to reply.
         div(class="box center w-50")
             h1(class="box-header text-center") Thread##{thread.id}
             div(class="box-content")
@@ -24,12 +24,15 @@ body
                 p(class="grey italics") #{date.toLocaleString()}
                 hr
                 p(class="thread-content") #{thread.content}
-        each post in replies 
-            div(class="box center w-50")
-                div(class="box-content")
-                    - var date = new Date(post.creation)
-                    p Created by #{post.username}
-                    p(class="grey italics") #{date.toLocaleString()}
-                    hr
-                    p(class="post-content") #{post.content}
+        div
+            each post in replies 
+                div(class="box center w-50" id=post.id)
+                    div(class="box-content")
+                        - var date = new Date(post.creation)
+                        span 
+                            span #{post.username} 
+                            span(class="grey italics") #{date.toLocaleString()}
+                            a(class="ml-2" href="#"+post.id) No.#{post.id}
+                        hr
+                        p(class="post-content") #{post.content}
 

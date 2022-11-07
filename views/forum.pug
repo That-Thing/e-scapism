@@ -27,6 +27,7 @@ body
                                 span #{post.username}
                                 - var date = new Date(post.creation)
                                 span(class="ml-1 italics grey") #{date.toLocaleString()}
+                                a(class="ml-2" href="#"+post.id) No.#{post.id}
                             div(class="post-content")
                                 p #{post.content} 
                             a(href="/forums/"+forum.id+"/"+post.id class="ml-1") [Link to thread]
