@@ -5,7 +5,7 @@ body
     div(class="container")
         div(class="box center w-50")
             h1(class="box-header text-center")
-                | #{forum.name}
+                | #{forum.name} - [#{forum.text_identifier}]
             div(class="box-content")
                 if loggedIn == true
                     form(action="/forums/"+forum.id+"/post" method="POST")
@@ -13,9 +13,11 @@ body
                             textarea(name="content" id="content" class="post-textarea" placeholder="Content. Minimum word count is "+config.posts.wordCount.threads.minimum maxlength=config.posts.wordCount.threads.maxChars required)
                             button(type="submit") Post
                 else
-                    span(class="text-center") You must be 
-                        a(href="/login") logged in
-                        |  to post.
+                    div(class="text-center") 
+                        span
+                            |You must be 
+                            a(href="/login") logged in
+                            |  to post.
                 if error
                     div(class="error mt-1 text-center") #{error}
         div(class="box center w-50")
@@ -24,16 +26,17 @@ body
             div(class="box-content")
                 if posts.length > 0
                     each post, index in posts
-                        div(class="post")
-                            div(class="post-header")
-                                span #{post.username}
-                                - var date = new Date(post.creation)
-                                span(class="ml-1 italics grey") #{date.toLocaleString()}
-                                a(class="ml-2" href="#"+post.id) No.#{post.id}
-                            div(class="post-content")
-                                p #{post.content} 
-                            a(href="/forums/"+forum.id+"/"+post.id class="ml-1") [Link to thread]
-                            if index != posts.length - 1
-                                hr
+                        if post.thread == null
+                            div(class="post")
+                                div(class="post-header")
+                                    span #{post.username}
+                                    - var date = new Date(post.creation)
+                                    span(class="ml-1 italics grey") #{date.toLocaleString()}
+                                    a(class="ml-2" href="/forums/"+forum.id+"/"+post.id) No.#{post.id}
+                                div(class="post-content")
+                                    p #{post.content} 
+                                a(href="/forums/"+forum.id+"/"+post.id class="ml-1") [Link to thread]
+                                if index != posts.length - 1
+                                    hr
                 else
                     p(class="text-center") No posts yet.
