@@ -4,6 +4,9 @@ hr {
   border: none;
   width: 100%;
 }
+a:visited {
+  color: #0000EE;
+}
 .container {
     padding: 10px;
 }

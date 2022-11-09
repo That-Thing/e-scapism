@@ -28,7 +28,7 @@ router.get('/:id', function(req, res, next) {
     }
     connection.query(`SELECT * FROM forums WHERE id = ${req.params.id}`, function (error, rows) { //Get forum
         if(rows.length > 0) {
-            connection.query(`SELECT * FROM posts WHERE forum=${req.params.id}`, function (error, posts) { //Get posts
+            connection.query(`SELECT * FROM posts WHERE forum=${req.params.id} AND thread IS NULL`, function (error, posts) { //Get posts
                 res.render('forum', { config: config, forum: rows[0], posts: posts, group: req.session.group, loggedIn: req.session.loggedIn, error: err });
             });
         } else {
