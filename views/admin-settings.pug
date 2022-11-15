@@ -1,0 +1,85 @@
+html
+    head 
+        title Admin Settings
+        include include/head.pug
+    body
+        div(class="continer")
+            div(class="box center" class="w-50")
+                h1(class="box-header text-center")
+                    | Admin Settings
+                div(class="box-content")
+                    form(action="/admin/settings/update" method="POST")
+                        div(class="flex")
+                            div(class="stacked-list w-25")
+                                h3 Branding 
+                                label(for="branding") Name
+                                input(type="text" name="name" value=config.branding.name)
+                                label(for="description") Description
+                                input(type="text" name="description" value=config.branding.description)
+                                label(for="branding") Logo
+                                input(type="text" name="logo" value=config.branding.logo)
+                            div(class="ml-2 stacked-list w-25")
+                                h3 Accounts 
+                                label(for="registration") Registrations 
+                                select(name="registration")
+                                    if config.accounts.registration.enabled == true
+                                        option(value="true" selected) Enabled
+                                        option(value="false") Disabled
+                                    else
+                                        option(value="true") Enabled
+                                        option(value="false" selected) Disabled
+                                label(for="require-email") Require Email
+                                select(name="require-email")
+                                    if config.accounts.registration == true
+                                        option(value="true" selected) Enabled
+                                        option(value="false") Disabled
+                                    else
+                                        option(value="true") Enabled
+                                        option(value="false" selected) Disabled
+                                label(for="email-confirmation") Email Confirmation
+                                select(name="email-confirmation")
+                                    if config.accounts.registration.requireEmailConfirmation == true
+                                        option(value="true" selected) Enabled
+                                        option(value="false") Disabled
+                                    else
+                                        option(value="true") Enabled
+                                        option(value="false" selected) Disabled
+                            div(class="ml-2 stacked-list w-25")
+                                h3 Threads
+                                label(for="thread-wordcount") Word Count
+                                select(name="thread-wordcount")
+                                    if config.posts.wordCount.threads.enabled == true
+                                        option(value="true" selected) Enabled
+                                        option(value="false") Disabled
+                                    else
+                                        option(value="true") Enabled
+                                        option(value="false" selected) Disabled
+                                label(for="thread-minimum-words") Minimum Words
+                                input(type="number" name="thread-minimum-words" value=config.posts.wordCount.threads.minimum)
+                                label(for="thread-maximum-words") Maximum Words
+                                input(type="number" name="thread-maximum-words" value=config.posts.wordCount.threads.maximum)
+                                label(for="thread-max-chars") Maximum Characters
+                                input(type="number" name="thread-max-chars" value=config.posts.wordCount.threads.maxChars)
+                            div(class="ml-2 stacked-list w-25")
+                                h3 Posts
+                                label(for="post-wordcount") Word Count
+                                select(name="post-wordcount")
+                                    if config.posts.wordCount.replies.enabled == true
+                                        option(value="true" selected) Enabled
+                                        option(value="false") Disabled
+                                    else
+                                        option(value="true") Enabled
+                                        option(value="false" selected) Disabled
+                                label(for="post-minimum-words") Minimum Words
+                                input(type="number" name="post-minimum-words" value=config.posts.wordCount.replies.minimum)
+                                label(for="post-maximum-words") Maximum Words
+                                input(type="number" name="post-maximum-words" value=config.posts.wordCount.replies.maximum)
+                                label(for="post-max-chars") Maximum Characters
+                                input(type="number" name="post-max-chars" value=config.posts.wordCount.replies.maxChars)
+                        div(class="text-center mt-2")
+                            input(type="submit" value="Update Settings")
+
+
+
+                    
+                    

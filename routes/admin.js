@@ -175,6 +175,16 @@ router.get('/users/:id/delete', function(req, res) {
     });
 });
 
+router.get('/settings', function(req, res) {
+    let err = null
+    if(req.query.error) {
+        err = req.query.error;
+    }
+    if(!req.session.loggedIn || req.session.group < 1) {
+        return res.redirect('/');
+    }
+    res.render('admin-settings', { config: config, group: req.session.group, user: req.session.user, error: err });
+});
 
 
 
