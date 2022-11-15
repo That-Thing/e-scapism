@@ -27,7 +27,7 @@ body
                 p Created by #{thread.username}
                 p(class="grey italics") #{date.toLocaleString()}
                 hr
-                p(class="thread-content") #{thread.content}
+                pre(class="thread-content") #{thread.content}
         div
             each post in replies 
                 div(class="box center w-50" id=post.id)
@@ -38,5 +38,5 @@ body
                             span(class="grey italics") #{date.toLocaleString()}
                             a(class="ml-2" href="#"+post.id) No.#{post.id}
                         hr
-                        p(class="post-content") #{post.content}
+                        pre(class="post-content") #{post.content}
 
