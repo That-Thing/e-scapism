@@ -34,3 +34,6 @@ a:visited {
   height: 100px;
   max-width: 100%;
 }
+.post-image {
+  max-width: 50%;
+}
