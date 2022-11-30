@@ -1,8 +1,8 @@
 
 # E-Scapism
 
-Intentionally minimal forum software. 
-
+Intentionally minimal forum software.   
+*This project is still in early development*
 
 ## Installation
 
