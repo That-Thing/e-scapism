@@ -85,3 +85,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+//Print start information
+console.log(`
+  Server started on port ${port}
+  URL: http://localhost:${port}
+  Press Ctrl+C to stop
+`)

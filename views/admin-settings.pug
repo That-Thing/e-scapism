@@ -16,8 +16,10 @@ html
                                 input(type="text" name="name" value=config.branding.name)
                                 label(for="description") Description
                                 input(type="text" name="description" value=config.branding.description)
-                                label(for="branding") Logo
+                                label(for="logo") Logo
                                 input(type="text" name="logo" value=config.branding.logo)
+                                label(for="favicon") Favicon
+                                input(type="text" name="favicon" value=config.branding.favicon)
                             div(class="ml-2 stacked-list w-25")
                                 h3 Accounts 
                                 label(for="registration") Registrations 
@@ -30,7 +32,7 @@ html
                                         option(value="false" selected) Disabled
                                 label(for="require-email") Require Email
                                 select(name="require-email")
-                                    if config.accounts.registration == true
+                                    if config.accounts.registration.requireEmail == true
                                         option(value="true" selected) Enabled
                                         option(value="false") Disabled
                                     else
