@@ -7,36 +7,11 @@ const { connect } = require('http2');
 const app = require('../app');
 const { body, validationResult } = require('express-validator');
 const { Console } = require('console');
+const markdown = require("../modules/markdown");
 
 //Check how many words are in a string.
 function checkWords (str) {
     return str.split(" ").length;
-}
-//Check if any markdown is present in a string 
-function checkMarkdown(str) {
-    str = str.replaceAll("&#x2F;", "/");
-    Array.from(str.matchAll(/\*\*\*[^*]+\*\*\*/gm)).forEach((match) => { //Bold Italics
-        str = str.replace(match[0], `<b><i>${match[0].substring(3,match[0].length-3)}</i></b>`);
-    });
-    Array.from(str.matchAll(/\*\*[^*]+\*\*/gm)).forEach((match) => { //Bold
-        str = str.replace(match[0], `<b>${match[0].substring(2,match[0].length-2)}</b>`);
-    });
-    Array.from(str.matchAll(/\*[^*]+\*/gm)).forEach((match) => { //Italics
-        str = str.replace(match[0], `<i>${match[0].substring(1,match[0].length-1)}</i>`);
-    });
-    Array.from(str.matchAll(/\[img](.*)\[\/img]/gm)).forEach((match) => { //Image
-        str = str.replace(match[0], `<img class="post-image" src="${match[1].substring(0, match[0].length-5)}">`);
-    });
-    Array.from(str.matchAll(/\[quote](.*)\[\/quote]/gm)).forEach((match) => { //Quote
-        str = str.replace(match[0], `<blockquote>${match[1]}</blockquote>`);
-    });
-    Array.from(str.matchAll(/\[code](.*)\[\/code]/gm)).forEach((match) => { //Code
-        str = str.replace(match[0], `<code>${match[1]}</code>`);
-    });
-    Array.from(str.matchAll(/\[spoiler](.*)\[\/spoiler]/gm)).forEach((match) => { //Spoiler
-        str = str.replace(match[0], `<span class="spoiler">${match[1]}</span>`);
-    });
-    return str;
 }
 
 //Forum list page
@@ -58,7 +33,7 @@ router.get('/:id', function(req, res, next) {
             connection.query(`SELECT * FROM posts WHERE forum=${req.params.id} AND thread IS NULL ORDER BY creation DESC`, function (error, posts) { //Get posts
                 //For each post, get post content
                 posts.forEach(post => {
-                    post.content = checkMarkdown(post.content);
+                    post.content = markdown(post.content);
                 });
                 res.render('forum', { config: config, forum: rows[0], posts: posts, group: req.session.group, loggedIn: req.session.loggedIn, error: err });
             });

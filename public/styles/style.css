@@ -37,3 +37,6 @@ a:visited {
 .post-image {
   max-width: 50%;
 }
+.post-text, .thread-text {
+  white-space: pre-wrap;
+}
