@@ -82,6 +82,9 @@ router.get('/:id/:post', function(req, res, next) {
                 if(posts.length > 0) {
                     connection.query(`SELECT * FROM posts WHERE thread=${req.params.post}`, function (error, replies) { //Get replies
                         if (error) throw error;
+                        replies.forEach(reply => {
+                            reply.content = markdown(reply.content);
+                        });
                         res.render('thread', { config: config, forum: forums[0], thread: posts[0], replies: replies, session: req.session });
                     });
                 } else {
