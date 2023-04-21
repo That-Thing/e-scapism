@@ -14,22 +14,25 @@ body
                             input(type="text", name="username", value=user.username)
                         span(class="form-input")
                             label(for="email") Email:
-                            input(type="text", name="email", value=user.email)
+                            if user.email === null
+                                input(type="text", name="email", placeholder="Leave blank to leave unchanged")
+                            else
+                                input(type="text", name="email", value=user.email)
                         span(class="form-input")
                             label(for="password") Password:
                             input(type="password", name="password", placeholder="Leave blank to leave unchanged")
                         span(class="form-input")
                             label(for="group") Group:
                             select(name="group")
-                                if user.group == 0
+                                if user.perms === 0
                                     option(value=0 selected) 0 - User
                                 else 
                                     option(value=0) 0 - User
-                                if user.group == 1
+                                if user.perms === 1
                                     option(value=1 selected) 1 - Moderator
                                 else 
                                     option(value=1) 1 - Moderator
-                                if user.group == 2
+                                if user.perms === 2
                                     option(value=2 selected) 2 - Administrator
                                 else 
                                     option(value=2) 2 - Administrator
